@@ -1,6 +1,14 @@
 # Tech Test Requirements
 
-This repository contains a tech test with three distinct implementation tasks. Please complete all three tasks to demonstrate your backend development skills with Next.js, Sanity CMS, and external API integrations.
+## Welcome
+
+Congratulations on being selected for this tech test. This repository contains a tech test with three distinct implementation tasks designed to showcase your backend development skills with Next.js, Sanity CMS, and external API integrations.
+
+**Time Expectation**: We estimate this test will take approximately 8-16 hours to complete, depending on your familiarity with the technologies involved.
+
+**AI Usage Policy**: We encourage the use of AI tools (ChatGPT, Claude, Copilot, etc.) to assist with your development process. However, please be prepared to explain and walk through any code you submit, as we'll discuss your implementation choices and reasoning during the technical interview.
+
+Please complete all three tasks to demonstrate your technical capabilities.
 
 ## Task 1: Algolia Search Integration
 
