@@ -80,6 +80,8 @@ Please complete all three tasks to demonstrate your technical capabilities.
 
 ## Submission Requirements
 
+**Expected Completion**: Please aim to complete and submit your solution by Friday, July 25th.
+
 Once you've completed all three tasks, please provide the following:
 
 - **Live Demo**: Deploy your solution to Vercel and share the live URL
