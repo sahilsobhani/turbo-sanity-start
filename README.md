@@ -1,6 +1,6 @@
 # Tech Test Requirements
 
-This repository contains a tech test with three distinct implementation tasks. Please complete all three tasks to demonstrate your full-stack development skills with Next.js, Sanity CMS, and external API integrations.
+This repository contains a tech test with three distinct implementation tasks. Please complete all three tasks to demonstrate your backend development skills with Next.js, Sanity CMS, and external API integrations.
 
 ## Task 1: Algolia Search Integration
 
