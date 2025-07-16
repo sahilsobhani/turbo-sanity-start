@@ -76,12 +76,10 @@ Please complete all three tasks to demonstrate your technical capabilities.
 
 ---
 
-Use our implementation of Sanity + Next.js to get this up and running the fastest below:
+Use our implementation of Sanity + Next.js to get this up and running the fastest below. For full documentation and setup instructions, see the [complete README on GitHub](https://github.com/robotostudio/turbo-start-sanity).
 
 # Next.js Monorepo with Sanity CMS
 
 A modern, full-stack monorepo template built with Next.js App Router, Sanity CMS, Shadcn UI, and TurboRepo.
 
 ![Easiest way to build a webpage](https://raw.githubusercontent.com/robotostudio/turbo-start-sanity/main/turbo-start-sanity-og.png)
-
-For full documentation and setup instructions, see the [complete README on GitHub](https://github.com/robotostudio/turbo-start-sanity).
