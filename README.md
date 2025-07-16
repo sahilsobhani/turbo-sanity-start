@@ -1,5 +1,9 @@
 # Roboto Studio backend tech test
 
+## About Us
+
+Our mission at Roboto Studio is to create the best editorial experiences on the web using bleeding edge technology & artificial intelligence. We want to make the bleeding edge accessible to all, and to break down the barriers between developers, designers, and content creators.
+
 ## Welcome
 
 Congratulations on being selected for this tech test. This repository contains a tech test with three distinct implementation tasks designed to showcase your backend development skills with Next.js, Sanity CMS, and external API integrations.
