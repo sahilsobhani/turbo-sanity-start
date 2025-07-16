@@ -1,4 +1,4 @@
-# [Roboto Studio](https://robotostudio.com) Tech Test
+# Roboto Studio Tech Test
 
 ## Welcome
 
