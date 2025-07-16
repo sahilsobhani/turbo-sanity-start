@@ -74,6 +74,14 @@ Please complete all three tasks to demonstrate your technical capabilities.
 - PokeAPI integration with proper error handling
 - TypeScript typing for Pokemon data structure
 
+## Submission Requirements
+
+Once you've completed all three tasks, please provide the following:
+
+- **Live Demo**: Deploy your solution to Vercel and share the live URL
+- **Source Code**: Share your GitHub repository link with all implemented features
+- **Schedule Interview**: Book your technical interview to discuss your implementation at [cal.com/roboto/interview](https://cal.com/roboto/interview)
+
 ---
 
 Use our implementation of Sanity + Next.js to get this up and running the fastest below. For full documentation and setup instructions, see the [complete README on GitHub](https://github.com/robotostudio/turbo-start-sanity).
