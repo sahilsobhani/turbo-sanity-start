@@ -35,6 +35,7 @@ This repository contains a tech test with three distinct implementation tasks. P
 - **Navigation**: Add category filters or navigation to the blog index page
 - **URL Structure**: Clean, SEO-friendly URLs matching the pattern shown in the example
 - **Reference Implementation**: Study and replicate the category system from [robotostudio.com/blog/sanity](https://robotostudio.com/blog/sanity)
+- **Bonus Feature**: Create categories as separate Sanity documents with custom SEO title/description overrides
 
 **Expected Deliverables**:
 
