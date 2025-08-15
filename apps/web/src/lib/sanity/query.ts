@@ -12,6 +12,15 @@ const imageFragment = /* groq */ `
   }
 `;
 
+//what:added BlogCategoryFragment to query category
+//why: so that I can include category information in the blog card
+const blogCategoryFragment = /* groq */ `
+  categories[]->{
+    _id,
+    title
+  }
+`;
+
 const customLinkFragment = /* groq */ `
   ...customLink{
     openInNewTab,
@@ -56,7 +65,8 @@ const blogCardFragment = /* groq */ `
   orderRank,
   ${imageFragment},
   publishedAt,
-  ${blogAuthorFragment}
+  ${blogAuthorFragment},
+  ${blogCategoryFragment}
 `;
 
 const buttonsFragment = /* groq */ `
@@ -223,6 +233,18 @@ export const queryBlogIndexPageData = defineQuery(`
   }
 `);
 
+//what:created a query to fetch blogs by category
+//why: to implement dynamic routes based on categories
+export const queryBlogsByCategory = defineQuery(`
+  *[
+    _type == "blog" &&
+    $category in categories[]->slug.current &&
+    seoHideFromLists != true
+  ] | order(orderRank asc) {
+    ${blogCardFragment}
+  }
+`);
+
 export const queryBlogSlugPageData = defineQuery(`
   *[_type == "blog" && slug.current == $slug][0]{
     ...,
@@ -231,6 +253,7 @@ export const queryBlogSlugPageData = defineQuery(`
     ${imageFragment},
     ${richTextFragment},
     ${pageBuilderFragment}
+   
   }
 `);
 

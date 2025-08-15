@@ -49,13 +49,35 @@ interface BlogAuthorProps {
   author: Blog["authors"];
 }
 
+//what:added interface for BlogCategoryProps
+//why:to include category information in the component
+interface BlogCategoryProps {
+  categories: {
+    _id: string;
+    title: string;
+  }[] | null;
+}
+
 export function BlogAuthor({ author }: BlogAuthorProps) {
   if (!author) return null;
-
+  
   return (
     <div className="flex items-center gap-x-2.5 text-sm/6 font-semibold text-gray-900">
       <AuthorImage author={author} />
       {author.name}
+    </div>
+  );
+}
+
+export function BlogCategory({ categories }: BlogCategoryProps) {
+  if (!categories?.length) return null;
+  return (
+    <div className="flex flex-wrap gap-2 text-sm/6 font-semibold text-slate-800 dark:text-slate-200">
+      {categories.map((cat) => (
+        <span key={cat._id} className="px-2 py-1 dark:bg-gray-600/20 bg-gray-50 rounded-md">
+          {cat.title}
+        </span>
+      ))}
     </div>
   );
 }
@@ -66,7 +88,9 @@ interface BlogCardProps {
 
 function BlogMeta({ publishedAt }: { publishedAt: string | null }) {
   return (
-    <div className="flex items-center gap-x-4 text-xs my-4">
+    <div className="flex text-muted-foreground items-center gap-x-1 text-xs my-4">
+      <div className="font-geist"> 5 MIN READ •</div>
+      Published at
       <time dateTime={publishedAt ?? ""} className="text-muted-foreground">
         {publishedAt
           ? new Date(publishedAt).toLocaleDateString("en-US", {
@@ -95,8 +119,8 @@ function BlogContent({
   const headingClasses = isFeatured
     ? "mt-3 text-3xl font-semibold leading-tight"
     : "mt-3 text-lg font-semibold leading-6";
-
-  return (
+  
+    return (
     <div className="group relative">
       <HeadingTag className={headingClasses}>
         <Link href={slug ?? "#"}>
@@ -113,9 +137,9 @@ function BlogContent({
 
 function AuthorSection({ authors }: { authors: Blog["authors"] }) {
   if (!authors) return null;
-
+  
   return (
-    <div className="mt-6 flex border-t border-gray-900/5 pt-6">
+    <div className="mt-6 flex border-t border-gray-900/5 pt-3">
       <div className="relative flex items-center gap-x-4">
         <AuthorImage author={authors} />
         <div className="text-sm leading-6">
@@ -129,8 +153,8 @@ function AuthorSection({ authors }: { authors: Blog["authors"] }) {
   );
 }
 export function FeaturedBlogCard({ blog }: BlogCardProps) {
-  const { title, publishedAt, slug, authors, description, image } = blog ?? {};
-
+  const { title, publishedAt, slug, authors, description, image, categories } =
+    blog ?? {};
   return (
     <article className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
       <BlogImage image={image} title={title} />
@@ -142,6 +166,7 @@ export function FeaturedBlogCard({ blog }: BlogCardProps) {
           description={description}
           isFeatured
         />
+        <BlogCategory categories={categories} />
         <AuthorSection authors={authors} />
       </div>
     </article>
@@ -161,9 +186,8 @@ export function BlogCard({ blog }: BlogCardProps) {
       </article>
     );
   }
-
-  const { title, publishedAt, slug, authors, description, image } = blog;
-
+  const { title, publishedAt, slug, authors, description, image, categories } =
+    blog;
   return (
     <article className="grid grid-cols-1 gap-4 w-full">
       <div className="relative w-full h-auto aspect-[16/9] overflow-hidden rounded-2xl">
@@ -173,6 +197,7 @@ export function BlogCard({ blog }: BlogCardProps) {
       <div className="w-full space-y-4">
         <BlogMeta publishedAt={publishedAt} />
         <BlogContent title={title} slug={slug} description={description} />
+        <BlogCategory categories={categories} />
         <AuthorSection authors={authors} />
       </div>
     </article>

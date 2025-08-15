@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { BlogCard, BlogHeader, FeaturedBlogCard } from "@/components/blog-card";
+import CategoryList from "@/components/sections/category-list";
 import { PageBuilder } from "@/components/pagebuilder";
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryBlogIndexPageData } from "@/lib/sanity/query";
@@ -19,12 +20,12 @@ export async function generateMetadata() {
   return getSEOMetadata(
     result
       ? {
-          title: result?.title ?? result?.seoTitle ?? "",
-          description: result?.description ?? result?.seoDescription ?? "",
-          slug: result?.slug,
-          contentId: result?._id,
-          contentType: result?._type,
-        }
+        title: result?.title ?? result?.seoTitle ?? "",
+        description: result?.description ?? result?.seoDescription ?? "",
+        slug: result?.slug,
+        contentId: result?._id,
+        contentType: result?._type,
+      }
       : {},
   );
 }
@@ -79,6 +80,10 @@ export default async function BlogIndexPage() {
       <div className="container my-16 mx-auto px-4 md:px-6">
         <BlogHeader title={title} description={description} />
 
+        <div className="my-8">
+          <div className="w-full h-[1px] dark:bg-gray-100/10 bg-gray-400/20 rounded-full my-4"></div>
+          <CategoryList />
+        </div>
         {featuredBlogs.length > 0 && (
           <div className="mx-auto mt-8 sm:mt-12 md:mt-16 mb-12 lg:mb-20 grid grid-cols-1 gap-8 md:gap-12">
             {featuredBlogs.map((blog) => (

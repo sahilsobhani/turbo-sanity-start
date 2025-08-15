@@ -66,6 +66,7 @@ export const blog = defineType({
         slugify: createSlug,
         isUnique,
       },
+
       validation: (Rule) => [
         Rule.required().error("A URL slug is required"),
         Rule.custom((value, context) => {
@@ -77,6 +78,31 @@ export const blog = defineType({
         }),
       ],
     }),
+
+    // what:Added Categories field to the blog schema
+    //why: task 2: create a seperate category schema and link it to the blog schema
+    defineField({
+      name: 'categories',
+      title: 'Categories',
+      type: 'array',
+      group: GROUP.MAIN_CONTENT,
+      description: 'Assign categories to help organize and filter blog posts',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'category' }],
+          options: {
+            disableNew: false, // Allow creating new categories inline
+          },
+        }),
+      ],
+      validation: (Rule) => [
+        Rule.required().error('At least one category is required'),
+        Rule.min(1).error('Please select at least one category'),
+        Rule.unique(),
+      ],
+    }),
+
     defineField({
       name: "authors",
       type: "array",

@@ -10,21 +10,21 @@ import { sanityFetch } from "@/lib/sanity/live";
 import { queryBlogPaths, queryBlogSlugPageData } from "@/lib/sanity/query";
 import { getSEOMetadata } from "@/lib/seo";
 
-async function fetchBlogSlugPageData(slug: string, stega = true) {
+async function fetchBlogSlugPageData(category: string, slug: string, stega = true) {
   return await sanityFetch({
     query: queryBlogSlugPageData,
-    params: { slug: `/blog/${slug}` },
+    params: { slug: `/blog/${category}/${slug}` },
     stega,
   });
 }
 
 async function fetchBlogPaths() {
   const slugs = await client.fetch(queryBlogPaths);
-  const paths: { slug: string }[] = [];
+  const paths: { category: string; slug: string }[] = [];
   for (const slug of slugs) {
     if (!slug) continue;
-    const [, , path] = slug.split("/");
-    if (path) paths.push({ slug: path });
+    const [, category, path] = slug.split("/");
+    if (category && path) paths.push({ category, slug: path });
   }
   return paths;
 }
@@ -32,20 +32,20 @@ async function fetchBlogPaths() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ category: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const { data } = await fetchBlogSlugPageData(slug, false);
+  const { category, slug } = await params;
+  const { data } = await fetchBlogSlugPageData(category, slug);
   return getSEOMetadata(
     data
       ? {
-          title: data?.title ?? data?.seoTitle ?? "",
-          description: data?.description ?? data?.seoDescription ?? "",
-          slug: data?.slug,
-          contentId: data?._id,
-          contentType: data?._type,
-          pageType: "article",
-        }
+        title: data?.title ?? data?.seoTitle ?? "",
+        description: data?.description ?? data?.seoDescription ?? "",
+        slug: data?.slug,
+        contentId: data?._id,
+        contentType: data?._type,
+        pageType: "article",
+      }
       : {},
   );
 }
@@ -57,10 +57,10 @@ export async function generateStaticParams() {
 export default async function BlogSlugPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ category: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const { data } = await fetchBlogSlugPageData(slug);
+  const { category, slug } = await params;
+  const { data } = await fetchBlogSlugPageData(category, slug);
   if (!data) return notFound();
   const { title, description, image, richText } = data ?? {};
 

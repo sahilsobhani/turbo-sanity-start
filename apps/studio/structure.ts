@@ -122,6 +122,7 @@ export const structure = (
         icon: MessageCircleQuestion,
       }),
       createList({ S, type: "author", title: "Authors", icon: User }),
+      createList({ S, type: "category", title: "Categories", icon: BookMarked }),
       S.divider(),
       S.listItem()
         .title("Site Configuration")
