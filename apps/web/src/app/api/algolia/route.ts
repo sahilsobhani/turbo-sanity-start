@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       await client.deleteObject(body._id);
       return NextResponse.json({ message: "Deleted from Algolia", id: body._id });
     }
-
+    console.log("Saving to Algolia", body._id);
     await client.saveObject({
       indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || "blogs",
       objectID: body._id,
