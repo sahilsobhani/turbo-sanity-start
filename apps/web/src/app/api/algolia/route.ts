@@ -22,13 +22,19 @@ export async function POST(req: Request) {
       );
     }
 
+    console.log("Received body:", body);
+
     const isDelete = body._deleted || body._type === "deleted";
 
     // what: Handle delete operation
     // why: To remove the document from Algolia if it has been deleted in Sanity
     if (isDelete) {
       try {
-        await client.deleteObject(body._id);
+        await client.deleteObject({
+          indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || "blogs",
+          objectID: body._id,
+        });
+        console.log(`Deleted ${body._id} from Algolia`);
         return NextResponse.json({
           message: "Deleted from Algolia",
           id: body._id,
@@ -41,6 +47,7 @@ export async function POST(req: Request) {
         );
       }
     }
+
 
     console.log("Saving to Algolia", body._id);
 
