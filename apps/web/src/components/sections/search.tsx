@@ -10,6 +10,7 @@ import {
   Highlight,
 } from 'react-instantsearch';
 import { searchClient as client } from '@/lib/search/algoliaConfig';
+import { SquareArrowOutUpRight } from "lucide-react";
 
 
 const Hit = ({ hit }: { hit: any }) => {
@@ -20,27 +21,34 @@ const Hit = ({ hit }: { hit: any }) => {
 
   return (
     <Link href={slug} className="block">
-      <div className="px-4 py-3 hover:bg-zinc-100/60 dark:hover:bg-zinc-800/50 transition">
-        <h2 className="font-semibold text-base text-zinc-900 dark:text-zinc-100">
-          <Highlight classNames={
-            { highlighted: "dark:bg-slate-50/80 dark:text-black bg-slate-700 text-white" } //doesn't work for some reason, but added for clarity
-          } attribute="title" hit={hit} />
-        </h2>
+      <div className="px-4 py-3 hover:bg-zinc-100/60 dark:hover:bg-zinc-800/50 transition flex justify-between items-start">
+        <div className="flex-1">
+          <h2 className="font-semibold text-base text-zinc-900 dark:text-zinc-100">
+            <Highlight
+              classNames={{ highlighted: "dark:bg-slate-50/80 dark:text-black bg-slate-700 text-white" }}
+              attribute="title"
+              hit={hit}
+            />
+          </h2>
 
-        <p className="text-xs text-zinc-600 dark:text-zinc-400 line-clamp-2">
-          <Highlight classNames={
-            { highlighted: "dark:bg-slate-50/80 dark:text-black bg-slate-700 text-white" } //doesn't work for some reason, but added for clarity
-          } attribute="description" hit={hit} />
-        </p>
-
-        {hit.authors && hit.authors.length > 0 && (
-          <p className="mt-1 text-[11px] text-zinc-500 dark:text-zinc-400">
-            by {hit.authors.join(", ")}
+          <p className="text-xs text-zinc-600 dark:text-zinc-400 line-clamp-2">
+            <Highlight
+              classNames={{ highlighted: "dark:bg-slate-50/80 dark:text-black bg-slate-700 text-white" }}
+              attribute="description"
+              hit={hit}
+            />
           </p>
-        )}
+
+          {hit.authors && hit.authors.length > 0 && (
+            <p className="mt-1 text-[11px] text-zinc-500 dark:text-zinc-400">
+              by {hit.authors.join(", ")}
+            </p>
+          )}
+        </div>
+
+        <SquareArrowOutUpRight className="ml-4 mt-1 text-zinc-400 dark:text-zinc-200" size={16} />
       </div>
     </Link>
-
   );
 };
 
@@ -91,9 +99,9 @@ export function SearchSection() {
             input:
               'w-full rounded-md border border-zinc-300 dark:border-zinc-700 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md px-4 py-3 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm pr-10', // added padding-right for buttons
             submit:
-              'hidden', 
+              'hidden',
             reset:
-              'hidden', 
+              'hidden',
           }}
         />
 
