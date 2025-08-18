@@ -55,7 +55,7 @@ export default async function BlogCategoryPage(props: BlogCategoryPageProps) {
         </p>
         <div className="my-8">
           <div className="w-full h-[1px] dark:bg-gray-100/10 bg-gray-400/20 rounded-full my-4"></div>
-          <CategoryList />
+          <CategoryList currentCategory={params.category} />
         </div>
       </main>
     );
@@ -72,7 +72,7 @@ export default async function BlogCategoryPage(props: BlogCategoryPageProps) {
         </div>
         <div className="my-8">
           <div className="w-full h-[1px] dark:bg-gray-100/10 bg-gray-400/20 rounded-full my-4"></div>
-          <CategoryList />
+          <CategoryList currentCategory={params.category} />
         </div>
         <div className="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2">
           {blogs.map((blog) => (
