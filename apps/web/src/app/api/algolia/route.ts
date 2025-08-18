@@ -24,11 +24,13 @@ export async function POST(req: Request) {
 
     console.log("Received body:", body);
 
-    const isDelete = body._deleted || body._type === "deleted";
+    // what: Use the operation field from Sanity
+    // why: To reliably determine whether this is a create, update, or delete event
+    const operation = body.operation;
 
     // what: Handle delete operation
     // why: To remove the document from Algolia if it has been deleted in Sanity
-    if (isDelete) {
+    if (operation === "delete") {
       try {
         await client.deleteObject({
           indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || "blogs",
@@ -48,20 +50,26 @@ export async function POST(req: Request) {
       }
     }
 
-
-    console.log("Saving to Algolia", body._id);
-
-    // what: Save or update the document in Algolia
+    // what: Handle create or update operation
     // why: To ensure the latest data is indexed for search
     try {
+      const record = {
+        objectID: body._id,
+        title: body.title,
+        description: body.description,
+        slug: body.slug,
+        categories: body.categories,
+        authors: body.authors,
+        publishedAt: body.publishedAt,
+        image: body.image,
+      };
+
       await client.saveObject({
         indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || "blogs",
-        body: {
-          objectID: body._id,
-          ...body,
-        },
+        body: record,
       });
 
+      console.log(`Saved ${body._id} to Algolia`);
       return NextResponse.json({
         message: "Saved to Algolia",
         id: body._id,
