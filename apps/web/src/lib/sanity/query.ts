@@ -21,6 +21,21 @@ const blogCategoryFragment = /* groq */ `
   }
 `;
 
+//what:added blogPokemonFragment to query pokemon
+//why: to include pokemon information in the blog card and blog page
+const blogPokemonFragment = /* groq */ `
+  pokemon {
+    id,
+    name,
+    sprite,
+    types,
+    base_experience,
+    height,
+    weight
+  }
+`;
+
+
 const customLinkFragment = /* groq */ `
   ...customLink{
     openInNewTab,
@@ -66,7 +81,8 @@ const blogCardFragment = /* groq */ `
   ${imageFragment},
   publishedAt,
   ${blogAuthorFragment},
-  ${blogCategoryFragment}
+  ${blogCategoryFragment},
+  ${blogPokemonFragment},
 `;
 
 const buttonsFragment = /* groq */ `
@@ -252,6 +268,7 @@ export const queryBlogSlugPageData = defineQuery(`
     ${blogAuthorFragment},
     ${imageFragment},
     ${richTextFragment},
+    ${blogPokemonFragment},
     ${pageBuilderFragment}
    
   }

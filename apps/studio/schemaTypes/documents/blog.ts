@@ -6,6 +6,7 @@ import { FileTextIcon } from "lucide-react";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 import { PathnameFieldComponent } from "../../components/slug-field-component";
+import { PokemonInput } from "../../components/pokemon-input"; // added pokenmon input component to accept value from the user
 import { GROUP, GROUPS } from "../../utils/constant";
 import { ogFields } from "../../utils/og-fields";
 import { seoFields } from "../../utils/seo-fields";
@@ -102,7 +103,18 @@ export const blog = defineType({
         Rule.unique(),
       ],
     }),
-
+    //what:Added Pokemon field to the blog schema
+    //why: task 3: create a pokemon schema and link it to the blog schema
+    defineField({
+      name: "pokemon",
+      title: "Pokemon",
+      type: "pokemon", // Your object type
+      group: GROUP.MAIN_CONTENT,
+      description: "Select a Pokémon for this blog post",
+      components: {
+        input: PokemonInput,
+      },
+    }),
     defineField({
       name: "authors",
       type: "array",
