@@ -7,6 +7,10 @@ import { getSEOMetadata } from "@/lib/seo";
 import { handleErrors } from "@/utils";
 import CategoryList from "@/components/sections/category-list";
 
+//what: added search section
+//why: to display the search box and exhibit search results
+import { SearchSection } from "@/components/sections/search";
+
 interface BlogCategoryPageProps {
   params: Promise<{
     category: string;
@@ -44,6 +48,7 @@ export default async function BlogCategoryPage(props: BlogCategoryPageProps) {
   if (!blogs.length) {
     return (
       <main className="container my-16 mx-auto px-4 md:px-6">
+        <SearchSection />
         <h1 className="text-4xl font-medium mb-4 uppercase">Blog / {params.category}</h1>
         <div className="h-[1px] mb-2 w-1/6 dark:bg-gray-100/10 bg-gray-700/10 rounded-full "></div>
         <div className="text-lg font-geist mb-4 md:pr-96 md:mr-20 overflow-hidden"> 
@@ -64,6 +69,7 @@ export default async function BlogCategoryPage(props: BlogCategoryPageProps) {
   return (
     <main className="bg-background">
       <div className="container my-16 mx-auto px-4 md:px-6">
+        <SearchSection />
         <h1 className="text-4xl font-medium mb-4 uppercase">Blog / {params.category} </h1>
         <div className="h-[1px] mb-2 w-1/6 dark:bg-gray-100/10 bg-gray-700/10 rounded-full "></div>
         <div className="text-lg font-geist mb-4 md:pr-96 md:mr-20 text-muted-foreground overflow-hidden"> 
