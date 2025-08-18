@@ -8,6 +8,10 @@ import { queryBlogIndexPageData } from "@/lib/sanity/query";
 import { getSEOMetadata } from "@/lib/seo";
 import { handleErrors } from "@/utils";
 
+//what: added search section
+//why: to display the search box and exhibit search results
+import { SearchSection } from "@/components/sections/search";
+
 async function fetchBlogPosts() {
   return await handleErrors(sanityFetch({ query: queryBlogIndexPageData }));
 }
@@ -78,6 +82,7 @@ export default async function BlogIndexPage() {
   return (
     <main className="bg-background">
       <div className="container my-16 mx-auto px-4 md:px-6">
+        <SearchSection /> 
         <BlogHeader title={title} description={description} />
 
         <div className="my-8">
