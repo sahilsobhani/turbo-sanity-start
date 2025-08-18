@@ -10,6 +10,8 @@ import { sanityFetch } from "@/lib/sanity/live";
 import { queryBlogPaths, queryBlogSlugPageData } from "@/lib/sanity/query";
 import { getSEOMetadata } from "@/lib/seo";
 
+import { PokemonCard } from "@/components/sections/pokemon-card";
+
 async function fetchBlogSlugPageData(category: string, slug: string, stega = true) {
   return await sanityFetch({
     query: queryBlogSlugPageData,
@@ -62,7 +64,8 @@ export default async function BlogSlugPage({
   const { category, slug } = await params;
   const { data } = await fetchBlogSlugPageData(category, slug);
   if (!data) return notFound();
-  const { title, description, image, richText } = data ?? {};
+  const { title, description, image, richText, pokemon } = data ?? {};
+
 
   return (
     <div className="container my-16 mx-auto px-4 md:px-6">
@@ -70,6 +73,7 @@ export default async function BlogSlugPage({
         <main>
           <ArticleJsonLd article={stegaClean(data)} />
           <header className="mb-8">
+            {pokemon && <PokemonCard pokemon={pokemon} />}
             <h1 className="mt-2 text-4xl font-bold">{title}</h1>
             <p className="mt-4 text-lg text-muted-foreground">{description}</p>
           </header>

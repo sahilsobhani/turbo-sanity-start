@@ -4,7 +4,7 @@ import Link from "next/link";
 import {
   InstantSearch,
   SearchBox,
-  InfiniteHits as  Hits,
+  InfiniteHits as Hits,
   useSearchBox,
   Configure,
   Highlight,
@@ -70,7 +70,7 @@ function ConditionalHits() {
           classNames={{
             list: 'divide-y divide-zinc-200 dark:divide-zinc-700',
             loadPrevious: 'px-4 hidden py-2 text-center text-sm text-zinc-500 dark:text-zinc-400',
-            loadMore: 'px-4 py-2 text-center text-sm text-zinc-500 dark:text-zinc-400',
+            loadMore: 'px-4 py-2 hidden text-center text-sm text-zinc-500 dark:text-zinc-400',
           }}
         />
       </div>
@@ -89,9 +89,14 @@ export function SearchSection() {
             root: 'w-full',
             form: 'relative flex items-center',
             input:
-              'w-full rounded-md border border-zinc-300 dark:border-zinc-700 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md px-4 py-3 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm',
+              'w-full rounded-md border border-zinc-300 dark:border-zinc-700 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md px-4 py-3 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm pr-10', // added padding-right for buttons
+            submit:
+              'hidden', 
+            reset:
+              'hidden', 
           }}
         />
+
         <ConditionalHits />
       </div>
     </InstantSearch>

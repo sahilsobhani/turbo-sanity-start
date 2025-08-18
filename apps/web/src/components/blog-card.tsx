@@ -82,6 +82,38 @@ export function BlogCategory({ categories }: BlogCategoryProps) {
   );
 }
 
+//what:added interface for BlogPokemonProps
+//why: to include pokemon information in the component
+interface BlogPokemonProps {
+  pokemon?: {
+    name: string | null;
+    sprite: string | null;
+    types: string[] | null;
+  } | null;
+}
+
+
+export function BlogPokemon({ pokemon }: BlogPokemonProps) {
+  if (!pokemon) return null;
+  if (!pokemon?.name || !pokemon.sprite || !pokemon.types?.length) return null;
+
+  return (
+    <div className="mt-2 flex items-center gap-2">
+      <img
+        src={pokemon.sprite}
+        alt={pokemon.name}
+        width={32}
+        height={32}
+        className="rounded-full"
+      />
+      <span className="text-sm font-medium text-gray-700">
+        {pokemon.name} ({pokemon.types.join(", ")})
+      </span>
+    </div>
+  );
+}
+
+
 interface BlogCardProps {
   blog: Blog;
 }
@@ -153,7 +185,7 @@ function AuthorSection({ authors }: { authors: Blog["authors"] }) {
   );
 }
 export function FeaturedBlogCard({ blog }: BlogCardProps) {
-  const { title, publishedAt, slug, authors, description, image, categories } =
+  const { title, publishedAt, slug, authors, description, image, categories,pokemon } =
     blog ?? {};
   return (
     <article className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
@@ -168,6 +200,7 @@ export function FeaturedBlogCard({ blog }: BlogCardProps) {
         />
         <BlogCategory categories={categories} />
         <AuthorSection authors={authors} />
+        <BlogPokemon pokemon={pokemon} />
       </div>
     </article>
   );
@@ -186,7 +219,7 @@ export function BlogCard({ blog }: BlogCardProps) {
       </article>
     );
   }
-  const { title, publishedAt, slug, authors, description, image, categories } =
+  const { title, publishedAt, slug, authors, description, image, categories, pokemon } =
     blog;
   return (
     <article className="grid grid-cols-1 gap-4 w-full">
@@ -199,6 +232,7 @@ export function BlogCard({ blog }: BlogCardProps) {
         <BlogContent title={title} slug={slug} description={description} />
         <BlogCategory categories={categories} />
         <AuthorSection authors={authors} />
+        <BlogPokemon pokemon={pokemon} /> 
       </div>
     </article>
   );
