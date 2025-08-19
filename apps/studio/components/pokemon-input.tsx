@@ -24,44 +24,62 @@ export function PokemonInput({ value, onChange, type, readOnly }: PokemonInputPr
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!query.trim()) {
-      setResults([]);
-      setError(null);
-      return;
-    }
+  if (!query.trim()) {
+    setResults([]);
+    setError(null);
+    return;
+  }
 
-    const handler = setTimeout(async () => {
-      setLoading(true);
-      setError(null);
+  const controller = new AbortController();
+  const signal = controller.signal;
 
-      try {
-        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${query.trim().toLowerCase()}`);
-        if (!res.ok) {
-          setResults([]);
+  const handler = setTimeout(async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${query.trim().toLowerCase()}`,
+        { signal }
+      );
+
+      if (!res.ok) {
+        if (res.status === 404) {
           setError("No Pokémon found");
-          setLoading(false);
-          return;
+        } else {
+          setError("Error fetching Pokémon");
         }
-        const data = await res.json();
+        setResults([]);
+        setLoading(false);
+        return;
+      }
 
-        const pokemon: PokemonData = {
-          id: data.id,
-          name: data.name,
-          sprite: data.sprites.front_default,
-          types: data.types.map((t: any) => t.type.name),
-        };
+      const data = await res.json();
 
-        setResults([pokemon]);
-      } catch (err) {
+      const pokemon: PokemonData = {
+        id: data.id,
+        name: data.name,
+        sprite: data.sprites.front_default,
+        types: data.types.map((t: any) => t.type.name),
+      };
+
+      setResults([pokemon]);
+    } catch (err: any) {
+      if (err.name !== "AbortError") {
         setResults([]);
         setError("Error fetching Pokémon");
-      } finally {
-        setLoading(false);
       }
-    }, 300);
+    } finally {
+      setLoading(false);
+    }
+  }, 300);
 
-    return () => clearTimeout(handler);
-  }, [query]);
+  return () => {
+    clearTimeout(handler);
+    controller.abort(); // cancel the previous fetch if query changes
+  };
+}, [query]);
+
 
   const handleSelect = (pokemon: PokemonData) => {
     if (!readOnly) {

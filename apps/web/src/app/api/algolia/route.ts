@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { parseBody } from "next-sanity/webhook";
-import { adminClient } from "@/lib/search/algoliaConfig";
+import { adminClient } from "@/lib/search/algoliaServerConfig";
 
 export async function POST(req: NextRequest) {
   try {
